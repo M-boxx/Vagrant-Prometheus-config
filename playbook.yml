@@ -1,0 +1,26 @@
+# LEMP PLAYBOOK
+---
+- hosts: "all"
+  become: true
+  tasks:
+  - name: "Install docker via apt"
+    apt:
+      name: "docker"
+      state: "latest"
+      update_cache: true
+  - name: "Install docker compose via apt"
+    apt:
+      name: "docker-compose"
+      state: "latest"
+      update_cache: true
+  - name: "Clone git repository"
+    git:
+      repo: "https://github.com/M-boxx/prometheus"
+      dest: "/etc/prometheus/"
+      clone: yes
+      update: yes
+      force: yes
+  - name: "Deploy Docker Compose stack"
+    community.docker.docker_compose:
+      project_src: /etc/prometheus/
+    register: output
