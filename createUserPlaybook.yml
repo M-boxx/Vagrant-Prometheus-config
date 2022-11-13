@@ -1,0 +1,22 @@
+# User creating playbook
+---
+- hosts: "all"
+  become: true
+  vars:
+    userToAdd: "user1"
+    groupToAdd: "group1"
+    passwordToAdd: "p"
+  tasks:
+    - name: Create group
+      group:
+        name: "{{ groupToAdd }}"
+        state: present
+
+    - name: Create Users Task
+      ansible.builtin.user:
+        name: "{{ userToAdd }}"
+        state: present
+        password: "{{passwordToAdd | password_hash('sha512') }}"
+        expires: 1
+        password_lock: true
+        group: "group1"

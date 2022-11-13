@@ -1,0 +1,16 @@
+# Getting memory and CPU status playbook
+---
+- hosts: "all"
+  become: true
+  tasks:
+    - name: Create file
+      ansible.builtin.file:
+        path: /tmp/cron.file
+        state: touch
+  
+    - name: Cron writing dates
+      ansible.builtin.cron:
+        name: cron date
+        minute: "*/1"
+        user: vagrant
+        job: "date >> /tmp/cron.file 2>&1"

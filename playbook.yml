@@ -12,15 +12,24 @@
     apt:
       name: "docker-compose"
       state: "latest"
-      update_cache: true
+      update_cache: true 
+      
   - name: "Clone git repository"
     git:
       repo: "https://github.com/M-boxx/prometheus"
       dest: "/etc/prometheus/"
       clone: yes
       update: yes
-      force: yes
-  - name: "Deploy Docker Compose stack"
+      force: yes 
+      
+  - name: "Stop docker containers"
     community.docker.docker_compose:
-      project_src: /etc/prometheus/
+      project_src: "/etc/prometheus/"
+      build: false
+      stopped: true
+    register: output    
+
+  - name: "Deploy Grafana+Prometheus container"
+    community.docker.docker_compose:
+      project_src: "/etc/prometheus/"
     register: output

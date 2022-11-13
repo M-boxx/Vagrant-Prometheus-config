@@ -1,0 +1,12 @@
+# Getting memory and CPU status playbook
+---
+- hosts: "all"
+  become: true
+  tasks:
+    - name: CPU usage
+      win_command: wmic cpu get loadpercentage
+      register: cpu_results
+
+    - name: Memory
+      win_command: systeminfo
+      register: memory_results 
