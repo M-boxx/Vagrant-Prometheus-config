@@ -1,3 +1,5 @@
+#Vagrant-task
+
 # Script for Ansible installation
 $ansibleUpScript = <<-'SCRIPT'
 echo "Installing script started"
@@ -7,18 +9,13 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
+  # Every Vagrant development environment requires a box
   config.vm.box = "generic/ubuntu2004"
 
   # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
-  
-
+  # Setting up ansible environment
   config.vm.provision "shell", inline: $ansibleUpScript
 
 
@@ -37,7 +34,7 @@ Vagrant.configure("2") do |config|
   #  ansible.playbook = "physicalStatusPlaybook.yml"
   #end
   
-  #Cron playbook
+  #Making cron script
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "cronPlaybook.yml"
   end
