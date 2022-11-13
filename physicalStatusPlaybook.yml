@@ -3,10 +3,10 @@
 - hosts: "all"
   become: true
   tasks:
-    - name: CPU usage
+    - name: "cpu status"
       win_command: wmic cpu get loadpercentage
       register: cpu_results
 
-    - name: Memory
+    - name: "memory status"
       win_command: systeminfo
       register: memory_results 
