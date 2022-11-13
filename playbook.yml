@@ -1,4 +1,4 @@
-# LEMP PLAYBOOK
+# Install docker+docker-compose and deploy Prometheus+grafana
 ---
 - hosts: "all"
   become: true
