@@ -1,4 +1,4 @@
-# Getting memory and CPU status playbook
+# Making cron playbook to write "date"
 ---
 - hosts: "all"
   become: true
